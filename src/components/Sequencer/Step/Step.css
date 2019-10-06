@@ -1,0 +1,31 @@
+.Step {
+    flex: 1;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    cursor: pointer;
+}
+
+.Step-current {
+    border-color: #999;
+}
+
+.Step-content:hover {
+    background-color: #eee;
+}
+
+.Step-content {
+    height: 100%;
+    transition: background-color 50ms;
+}
+
+.Step-active {
+    background-color: #dd3;
+}
+
+.Step-active:hover {
+    background-color: #ee2;
+}
+
+.Step-content:active {
+    background-color: #f00;
+}
