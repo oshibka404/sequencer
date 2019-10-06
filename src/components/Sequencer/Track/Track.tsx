@@ -29,7 +29,7 @@ const TrackView: React.FC<Props> = (props: Props) => {
             gainNode.gain.setTargetAtTime(value, ctx.currentTime, 0.03);
             gainNode.gain.setTargetAtTime(0, ctx.currentTime + 0.03, 0.3);
         }
-    }, [props.currentStep, gainNode]);
+    }, [props.currentStep, gainNode, track.steps]);
 
     useEffect(() => {
         if (osc && gainNode) {
@@ -42,7 +42,7 @@ const TrackView: React.FC<Props> = (props: Props) => {
             setOscillator(ctx.createOscillator());
             setGainNode(ctx.createGain());
         }
-    }, [osc, gainNode]);
+    }, [osc, gainNode, track.pitch]);
 
     function setStep(index: number, value: number) {
         track.steps.splice(index, 1, value);
