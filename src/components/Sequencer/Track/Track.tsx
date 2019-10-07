@@ -12,6 +12,8 @@ export interface Track {
 interface Props {
     initialTrack: Track;
     currentStep: number|null;
+    isGhostEditing: boolean;
+    setIsGhostEditing(isGhostEditing: boolean): void;
     isEditing: boolean;
     setIsEditing(isEditing: boolean): void;
 }
@@ -67,10 +69,13 @@ const TrackView: React.FC<Props> = (props: Props) => {
                         value={value}
                         pitch={track.pitch}
                         isCurrent={props.currentStep === index}
-                        toggleStep={() => setStep(index, value ? 0 : .3)}
+                        toggleStep={() => setStep(index, value ? 0 : .1)}
+                        toggleAccent={() => setStep(index, value === 1 ? 0 : 1)}
+                        toggleGhost={() => setStep(index, value === .01 ? 0 : .01)}
                         setIsEditing={props.setIsEditing}
                         isEditing={props.isEditing}
-                        setAccent={() => setStep(index, 1)}
+                        setIsGhostEditing={props.setIsGhostEditing}
+                        isGhostEditing={props.isGhostEditing}
                     />
                 ))
             }

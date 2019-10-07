@@ -25,14 +25,17 @@ const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [tempo, setTempo] = useState(100);
   const [isEditing, setIsEditing] = useState(false);
+  const [isGhostEditing, setIsGhostEditing] = useState(false);
   const [currentStep, setCurrentStep] = useState<number|null>(null);
 
   return (
     <div
       className="App"
       onMouseUp={(e) => {
-      setIsEditing(false);
-    }}>
+        setIsEditing(false);
+        setIsGhostEditing(false);
+      }}
+    >
       <div className="controls">
         <button onClick={() => setIsPlaying(!isPlaying)}>{isPlaying ? 'Pause' : 'Play'}</button>
         <button onClick={() => {
@@ -51,6 +54,8 @@ const App: React.FC = () => {
         tempo={tempo}
         setCurrentStep={setCurrentStep}
         isPlaying={isPlaying}
+        isGhostEditing={isGhostEditing}
+        setIsGhostEditing={setIsGhostEditing}
       />
     </div>
   );

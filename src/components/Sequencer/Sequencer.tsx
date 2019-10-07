@@ -13,6 +13,8 @@ interface Props {
     setCurrentStep(currentStep: number|null): void;
     isPlaying: boolean;
     tempo: number;
+    isGhostEditing: boolean;
+    setIsGhostEditing(isEditing: boolean): void;
 }
 
 const Sequencer: React.FC<Props> = (props: Props) => {
@@ -65,6 +67,8 @@ const Sequencer: React.FC<Props> = (props: Props) => {
                         currentStep={props.currentStep}
                         isEditing={props.isEditing}
                         setIsEditing={props.setIsEditing}
+                        isGhostEditing={props.isGhostEditing}
+                        setIsGhostEditing={props.setIsGhostEditing}
                     />
                 ))
             }
