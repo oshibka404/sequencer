@@ -37,13 +37,23 @@ const App: React.FC = () => {
       }}
     >
       <div className="controls">
-        <button onClick={() => setIsPlaying(!isPlaying)}>{isPlaying ? 'Pause' : 'Play'}</button>
-        <button onClick={() => {
-          setCurrentStep(null);
-          setIsPlaying(false);
-        }}>Stop</button>
+        <button 
+          className={`Controls-button ${isPlaying ? 'Pause' : 'Play'}`}
+          title={isPlaying ? 'Pause' : 'Play'}
+          onClick={() => setIsPlaying(!isPlaying)}
+        />
+        <button
+          className="Controls-button Stop"
+          title="Stop"
+          onClick={() => {
+            setCurrentStep(null);
+            setIsPlaying(false);
+          }} />
         <input type="number" value={tempo} onChange={(e) => setTempo(parseInt(e.target.value))} />
-        <button onClick={() => setSequence(getEmptySequence())}>Clear</button>
+        <button
+          className="Controls-button Clear"
+          title="Clear"
+          onClick={() => setSequence(getEmptySequence())}/>
         <button onClick={() => setSequence(getRandomSequence())}>Randomize</button>
       </div>
       <Sequencer

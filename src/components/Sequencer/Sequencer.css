@@ -1,0 +1,14 @@
+.Sequencer {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    user-select: none;
+}
+
+.Sequencer-stepNumbers {
+    display: table-row;
+}
+
+.Sequencer-stepNumber {
+    display: table-cell;
+}
