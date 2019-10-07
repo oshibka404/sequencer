@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import TrackView, { Track } from './Sequencer/Track/Track';
+import { Track } from './Sequencer/Track/Track';
 import notes, {scale} from '../helpers/notes';
-
-const totalSteps = 16;
+import Sequencer, { totalSteps } from './Sequencer/Sequencer';
 
 function getEmptySequence(): Track[] {
   return scale.map((note) => ({
@@ -21,44 +20,12 @@ function getRandomSequence(): Track[] {
   }));
 }
 
-const initialSequence = getEmptySequence();
-
-let playIntervalID : number;
-
 const App: React.FC = () => {
-  const [sequence, setSequence] = useState(initialSequence);
+  const [sequence, setSequence] = useState(getEmptySequence());
   const [isPlaying, setIsPlaying] = useState(false);
   const [tempo, setTempo] = useState(100);
   const [isEditing, setIsEditing] = useState(false);
-  let [currentStep, setCurrentStep] = useState<number>();
-
-  useEffect(() => {
-    if (isPlaying) {
-      const sixteenthTime = 60000 / tempo / 4;
-      playIntervalID = window.setInterval(() => {
-        if (currentStep === undefined) {
-          currentStep = 0;
-        }
-        setCurrentStep(currentStep++ % totalSteps);
-      }, sixteenthTime);
-    } else {
-      window.clearInterval(playIntervalID);
-    }
-  }, [isPlaying]);
-
-  useEffect(() => {
-    window.clearInterval(playIntervalID);
-    if (isPlaying) {
-      const sixteenthTime = 60000 / tempo / 4;
-      playIntervalID = window.setInterval(() => {
-        if (currentStep === undefined) {
-          currentStep = 0;
-        }
-        setCurrentStep(currentStep++ % totalSteps);
-      }, sixteenthTime);
-    }
-  }, [tempo]);
-
+  const [currentStep, setCurrentStep] = useState<number>();
 
   return (
     <div
@@ -76,19 +43,15 @@ const App: React.FC = () => {
         <button onClick={() => setSequence(getEmptySequence())}>Clear</button>
         <button onClick={() => setSequence(getRandomSequence())}>Randomize</button>
       </div>
-      <div className="sequencer">
-      {
-        sequence.map((track) => (
-          <TrackView
-            key={track.pitch}
-            initialTrack={track}
-            currentStep={currentStep}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-          />
-        ))
-      }
-      </div>
+      <Sequencer
+        sequence={sequence}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        currentStep={currentStep}
+        tempo={tempo}
+        setCurrentStep={setCurrentStep}
+        isPlaying={isPlaying}
+      />
     </div>
   );
 }
