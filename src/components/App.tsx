@@ -23,31 +23,53 @@ function getRandomSequence(): Track[] {
 
 const initialSequence = getEmptySequence();
 
-let playTimeoutID : number;
+let playIntervalID : number;
 
 const App: React.FC = () => {
   const [sequence, setSequence] = useState(initialSequence);
   const [isPlaying, setIsPlaying] = useState(false);
   const [tempo, setTempo] = useState(100);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);
+  let [currentStep, setCurrentStep] = useState<number>();
 
   useEffect(() => {
     if (isPlaying) {
       const sixteenthTime = 60000 / tempo / 4;
-      playTimeoutID = window.setTimeout(() => {
-        setCurrentStep((currentStep + 1) % totalSteps);
+      playIntervalID = window.setInterval(() => {
+        if (currentStep === undefined) {
+          currentStep = 0;
+        }
+        setCurrentStep(currentStep++ % totalSteps);
       }, sixteenthTime);
     } else {
-      clearTimeout(playTimeoutID);
+      window.clearInterval(playIntervalID);
     }
-  }, [isPlaying, tempo, currentStep]);
+  }, [isPlaying]);
+
+  useEffect(() => {
+    window.clearInterval(playIntervalID);
+    if (isPlaying) {
+      const sixteenthTime = 60000 / tempo / 4;
+      playIntervalID = window.setInterval(() => {
+        if (currentStep === undefined) {
+          currentStep = 0;
+        }
+        setCurrentStep(currentStep++ % totalSteps);
+      }, sixteenthTime);
+    }
+  }, [tempo]);
+
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      onMouseUp={(e) => {
+      setIsEditing(false);
+    }}>
       <div className="controls">
         <button onClick={() => setIsPlaying(!isPlaying)}>{isPlaying ? 'Pause' : 'Play'}</button>
         <button onClick={() => {
-          setCurrentStep(0);
+          setCurrentStep(undefined);
           setIsPlaying(false);
         }}>Stop</button>
         <input type="number" value={tempo} onChange={(e) => setTempo(parseInt(e.target.value))} />
@@ -61,6 +83,8 @@ const App: React.FC = () => {
             key={track.pitch}
             initialTrack={track}
             currentStep={currentStep}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
           />
         ))
       }

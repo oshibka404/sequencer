@@ -10,8 +10,10 @@ export interface Track {
 }
 
 interface Props {
-    initialTrack: Track,
-    currentStep: number
+    initialTrack: Track;
+    currentStep?: number;
+    isEditing: boolean;
+    setIsEditing(isEditing: boolean): void;
 }
 
 const TrackView: React.FC<Props> = (props: Props) => {
@@ -24,10 +26,14 @@ const TrackView: React.FC<Props> = (props: Props) => {
     }, [props.initialTrack]);
 
     useEffect(() => {
-        const value = track.steps[props.currentStep];
-        if (value && gainNode) {
-            gainNode.gain.setTargetAtTime(value, ctx.currentTime, 0.03);
-            gainNode.gain.setTargetAtTime(0, ctx.currentTime + 0.03, 0.3);
+        if (props.currentStep !== undefined) {
+            const value = track.steps[props.currentStep];
+            if (value && gainNode) {
+                gainNode.gain.cancelScheduledValues(ctx.currentTime);
+                gainNode.gain.setValueAtTime(gainNode.gain.value ? gainNode.gain.value : 0.000001, ctx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(value, ctx.currentTime + 0.1);
+                gainNode.gain.exponentialRampToValueAtTime(0.000001, ctx.currentTime + 0.3);
+            }
         }
     }, [props.currentStep, gainNode, track.steps]);
 
@@ -61,7 +67,9 @@ const TrackView: React.FC<Props> = (props: Props) => {
                         value={value}
                         pitch={track.pitch}
                         isCurrent={props.currentStep === index}
-                        setStep={() => setStep(index, value ? 0 : 1)}
+                        toggleStep={() => setStep(index, value ? 0 : 1)}
+                        setIsEditing={props.setIsEditing}
+                        isEditing={props.isEditing}
                     />
                 ))
             }
