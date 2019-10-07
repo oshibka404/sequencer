@@ -1,12 +1,13 @@
-html, body, #root {
-  height: 100%;
-  box-sizing: border-box;
-}
-
 .App {
   display: flex;
   flex-direction: column;
   padding: 24px;
   height: 100%;
   box-sizing: border-box;
+}
+
+.controls {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }

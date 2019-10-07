@@ -1,8 +1,9 @@
 .Step {
-    flex: 1;
+    display: table-cell;
     box-sizing: border-box;
     border: 1px solid #eee;
     cursor: pointer;
+    height: 100%;
 }
 
 .Step-current {

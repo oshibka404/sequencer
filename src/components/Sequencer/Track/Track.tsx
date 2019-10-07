@@ -11,7 +11,7 @@ export interface Track {
 
 interface Props {
     initialTrack: Track;
-    currentStep?: number;
+    currentStep: number|null;
     isEditing: boolean;
     setIsEditing(isEditing: boolean): void;
 }
@@ -26,7 +26,7 @@ const TrackView: React.FC<Props> = (props: Props) => {
     }, [props.initialTrack]);
 
     useEffect(() => {
-        if (props.currentStep !== undefined) {
+        if (props.currentStep !== null) {
             const value = track.steps[props.currentStep];
             if (value && gainNode) {
                 gainNode.gain.cancelScheduledValues(ctx.currentTime);
@@ -42,7 +42,7 @@ const TrackView: React.FC<Props> = (props: Props) => {
             osc.frequency.value = track.pitch;
             osc.connect(gainNode);
             gainNode.connect(filter);
-            gainNode.gain.value = 0;
+            gainNode.gain.value = 0.000001;
             osc.start();
         } else {
             setOscillator(ctx.createOscillator());
@@ -67,9 +67,10 @@ const TrackView: React.FC<Props> = (props: Props) => {
                         value={value}
                         pitch={track.pitch}
                         isCurrent={props.currentStep === index}
-                        toggleStep={() => setStep(index, value ? 0 : 1)}
+                        toggleStep={() => setStep(index, value ? 0 : .3)}
                         setIsEditing={props.setIsEditing}
                         isEditing={props.isEditing}
+                        setAccent={() => setStep(index, 1)}
                     />
                 ))
             }

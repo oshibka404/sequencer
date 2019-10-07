@@ -1,62 +1,74 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import TrackView, { Track } from './Track/Track';
+import ctx from '../../context';
+import './Sequencer.css';
 
 export const totalSteps = 16;
 
 interface Props {
     isEditing: boolean;
-    currentStep?: number;
+    currentStep: number|null;
     sequence: Track[];
     setIsEditing(isEditing: boolean): void;
-    setCurrentStep(currentStep: number): void;
+    setCurrentStep(currentStep: number|null): void;
     isPlaying: boolean;
     tempo: number;
 }
 
-let playIntervalID : number;
-
 const Sequencer: React.FC<Props> = (props: Props) => {
-    let currentStep = props.currentStep;
+    const playIntervalID = useRef<number>();
+
+    let currentStep = useRef<number|null>(props.currentStep);
+
+    const {isPlaying, tempo, setCurrentStep} = props;
+
     useEffect(() => {
-        if (props.isPlaying) {
-            const sixteenthTime = 60000 / props.tempo / 4;
-            playIntervalID = window.setInterval(() => {
-                if (currentStep === undefined) {
-                    currentStep = 0;
+        window.clearInterval(playIntervalID.current);
+    }, [tempo]);
+
+    useEffect(() => {
+        if (props.currentStep === null) {
+            currentStep.current = null;
+        }
+    }, [props.currentStep]);
+
+    useEffect(() => {
+        if (isPlaying) {
+            ctx.resume();
+            const sixteenthTime = 60000 / tempo / 4;
+            playIntervalID.current = window.setInterval(() => {
+                if (currentStep.current === null) {
+                    currentStep.current = 0;
                 }
-                props.setCurrentStep(currentStep++ % totalSteps);
+                setCurrentStep(currentStep.current++ % totalSteps);
             }, sixteenthTime);
         } else {
-            window.clearInterval(playIntervalID);
+            window.clearInterval(playIntervalID.current);
         }
-      }, [props.isPlaying]);
-    
-    useEffect(() => {
-        window.clearInterval(playIntervalID);
-        if (props.isPlaying) {
-            const sixteenthTime = 60000 / props.tempo / 4;
-            playIntervalID = window.setInterval(() => {
-                if (currentStep === undefined) {
-                    currentStep = 0;
-                }
-                props.setCurrentStep(currentStep++ % totalSteps);
-            }, sixteenthTime);
-        }
-    }, [props.tempo]);
+      }, [isPlaying, tempo, setCurrentStep]);
+
     return (
-        <div className="sequencer">
-      {
-        props.sequence.map((track: Track) => (
-            <TrackView
-                key={track.pitch}
-                initialTrack={track}
-                currentStep={props.currentStep}
-                isEditing={props.isEditing}
-                setIsEditing={props.setIsEditing}
-            />
-        ))
-      }
-      </div>
+        <div className="Sequencer">
+            <div className="Sequencer-stepNumbers">
+            <div className="Sequencer-stepNumber"></div>
+                {
+                    (new Array(totalSteps))
+                        .fill(0)
+                        .map((_, i) => <div className="Sequencer-stepNumber" key={i}>{i+1}</div>)
+                }
+            </div>
+            {
+                props.sequence.map((track: Track) => (
+                    <TrackView
+                        key={track.pitch}
+                        initialTrack={track}
+                        currentStep={props.currentStep}
+                        isEditing={props.isEditing}
+                        setIsEditing={props.setIsEditing}
+                    />
+                ))
+            }
+        </div> 
     );
 }
 

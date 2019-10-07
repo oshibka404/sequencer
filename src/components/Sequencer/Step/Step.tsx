@@ -5,9 +5,10 @@ interface Props {
     value: number;
     pitch: number;
     isCurrent: boolean;
-    toggleStep(e: React.MouseEvent): void;
+    toggleStep: React. MouseEventHandler;
     isEditing: boolean;
     setIsEditing(isEditing: boolean): void;
+    setAccent: React.MouseEventHandler
 }
 
 const Step: React.FC<Props> = (props: Props) => {
@@ -23,8 +24,11 @@ const Step: React.FC<Props> = (props: Props) => {
                     props.toggleStep(e);
                 }
             }}
+            onDoubleClick={(e) => {
+                props.setAccent(e)
+            }}
         >
-            <div className={`Step-content ${props.value > 0 ? 'Step-active' : ''}`} style={{opacity: props.value ? 0.3 + 0.7 * props.value : 1}}></div>
+            <div className={`Step-content ${props.value > 0 ? 'Step-active' : ''}`} style={{opacity: props.value ? 0.1 + 0.9 * props.value : 1}}></div>
         </div>
     );
 }

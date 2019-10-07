@@ -1,9 +1,9 @@
 .TrackView {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
+    display: table-row;
+    height: 32px;
 }
 
 .TrackTitle {
-    flex: 1;
+    display: table-cell;
+    width: 50px;
 }

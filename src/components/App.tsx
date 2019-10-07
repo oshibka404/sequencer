@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Track } from './Sequencer/Track/Track';
 import notes, {scale} from '../helpers/notes';
@@ -25,7 +25,7 @@ const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [tempo, setTempo] = useState(100);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentStep, setCurrentStep] = useState<number>();
+  const [currentStep, setCurrentStep] = useState<number|null>(null);
 
   return (
     <div
@@ -36,7 +36,7 @@ const App: React.FC = () => {
       <div className="controls">
         <button onClick={() => setIsPlaying(!isPlaying)}>{isPlaying ? 'Pause' : 'Play'}</button>
         <button onClick={() => {
-          setCurrentStep(undefined);
+          setCurrentStep(null);
           setIsPlaying(false);
         }}>Stop</button>
         <input type="number" value={tempo} onChange={(e) => setTempo(parseInt(e.target.value))} />
