@@ -51,27 +51,31 @@ const Sequencer: React.FC<Props> = (props: Props) => {
 
     return (
         <div className="Sequencer">
-            <div className="Sequencer-stepNumbers">
-            <div className="Sequencer-stepNumber"></div>
+            <div className="Sequencer-header">
+                <div className="Sequencer-stepNumbers">
+                    <div className="Sequencer-stepNumber"></div>
+                    {
+                        (new Array(totalSteps))
+                            .fill(0)
+                            .map((_, i) => <div className="Sequencer-stepNumber" key={i}>{i+1}</div>)
+                    }
+                </div>
+            </div>
+            <div className="Sequencer-body">
                 {
-                    (new Array(totalSteps))
-                        .fill(0)
-                        .map((_, i) => <div className="Sequencer-stepNumber" key={i}>{i+1}</div>)
+                    props.sequence.map((track: Track) => (
+                        <TrackView
+                            key={track.pitch}
+                            initialTrack={track}
+                            currentStep={props.currentStep}
+                            isEditing={props.isEditing}
+                            setIsEditing={props.setIsEditing}
+                            isGhostEditing={props.isGhostEditing}
+                            setIsGhostEditing={props.setIsGhostEditing}
+                        />
+                    ))
                 }
             </div>
-            {
-                props.sequence.map((track: Track) => (
-                    <TrackView
-                        key={track.pitch}
-                        initialTrack={track}
-                        currentStep={props.currentStep}
-                        isEditing={props.isEditing}
-                        setIsEditing={props.setIsEditing}
-                        isGhostEditing={props.isGhostEditing}
-                        setIsGhostEditing={props.setIsGhostEditing}
-                    />
-                ))
-            }
         </div> 
     );
 }

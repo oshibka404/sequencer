@@ -1,6 +1,8 @@
 html, body, #root {
   height: 100%;
   box-sizing: border-box;
+  color: #02732A;
+  font-size: 16px;
 }
 
 body {
@@ -15,4 +17,31 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+input {
+  color: #02732A;
+  border: 1px solid #02732A;
+  padding: 0 5px;
+  height: 32px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: 16px;
+  width: 64px;
+  margin-right: 8px;
+}
+
+button {
+  background-color: #3D6AF2;
+  border: none;
+  color: #fff;
+  height: 32px;
+  border-radius: 2px;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+button:active {
+  background-color: #F24130;
 }

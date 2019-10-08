@@ -23,3 +23,15 @@ reverbGain.gain.value = 0.5; // Wet gain
 master.gain.value = 0.7; // Dry Gain
 
 export default ctx;
+
+
+fetch('https://raw.githubusercontent.com/afuh/sequencer/master/assets/Large%20Long%20Echo%20Hall.wav')
+    .then(async res => {
+        ctx.decodeAudioData(await res.arrayBuffer())
+            .then(buffer => {
+                // const source = ctx.createBufferSource();
+                // source.buffer = buffer;
+                reverb.buffer = buffer;
+            })
+        .catch(e =>  "Error with decoding audio data" + e)
+    })

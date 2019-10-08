@@ -5,6 +5,14 @@
     user-select: none;
 }
 
+.Sequencer-header {
+    display: table-header-group;
+}
+
+.Sequencer-body {
+    display: table-row-group;
+}
+
 .Sequencer-stepNumbers {
     display: table-row;
 }

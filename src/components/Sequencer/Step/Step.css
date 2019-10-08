@@ -3,11 +3,20 @@
     box-sizing: border-box;
     border: 1px solid #eee;
     cursor: pointer;
-    height: 100%;
+    height: 32px;
+}
+
+.TrackView:first-child .Step-current {
+    border-top-color: #F24130;
+}
+
+.TrackView:last-child .Step-current {
+    border-bottom-color: #F24130;
 }
 
 .Step-current {
-    border-color: #999;
+    border-left-color: #F24130;
+    border-right-color: #F24130;
 }
 
 .Step-content:hover {
@@ -20,13 +29,13 @@
 }
 
 .Step-active {
-    background-color: #dd3;
+    background-color: #F2E205;
 }
 
 .Step-active:hover {
-    background-color: #ee2;
+    background-color: #fff000;
 }
 
 .Step-content:active {
-    background-color: #f00;
+    background-color: #F24130;
 }

@@ -49,7 +49,10 @@ const App: React.FC = () => {
             setCurrentStep(null);
             setIsPlaying(false);
           }} />
-        <input type="number" value={tempo} onChange={(e) => setTempo(parseInt(e.target.value))} />
+        <div>
+          <input type="number" value={tempo} onChange={(e) => setTempo(parseInt(e.target.value))} />
+          bpm
+        </div>
         <button
           className="Controls-button Clear"
           title="Clear"
