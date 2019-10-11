@@ -40,9 +40,9 @@
   left: 0;
   width: 0;
   height: 0;
-  border-left: 32px;
-  border-top: 16px;
-  border-bottom: 16px;
+  border-left: 32px solid;
+  border-top: 16px solid;
+  border-bottom: 16px solid;
   border-right: 0;
   border-style: solid;
   border-top-color: transparent;
@@ -56,10 +56,10 @@
   left: 0;
   width: 10px;
   height: 32px;
-  border-left: 11px;
+  border-left: 11px solid;
   border-top: 0;
   border-bottom: 0;
-  border-right: 11px;
+  border-right: 11px solid;
   border-style: solid;
   border-top-color: transparent;
   border-bottom-color: transparent;
