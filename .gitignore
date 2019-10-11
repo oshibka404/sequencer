@@ -8,8 +8,8 @@
 # testing
 /coverage
 
-# production
-/build
+# production TODO: uncomment. Lighsail runs out of memory on build
+# /build
 
 # misc
 .DS_Store
