@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/sequencer/static/css/main.6061e0a6.chunk.css",
+    "main.css": "/sequencer/static/css/main.3950b9ad.chunk.css",
     "main.js": "/sequencer/static/js/main.59aac072.chunk.js",
     "main.js.map": "/sequencer/static/js/main.59aac072.chunk.js.map",
     "runtime-main.js": "/sequencer/static/js/runtime-main.a4c1fe0b.js",
@@ -8,14 +8,14 @@
     "static/js/2.a5d5e210.chunk.js": "/sequencer/static/js/2.a5d5e210.chunk.js",
     "static/js/2.a5d5e210.chunk.js.map": "/sequencer/static/js/2.a5d5e210.chunk.js.map",
     "index.html": "/sequencer/index.html",
-    "precache-manifest.dd5e93538b7aeac86d1c0f1be73085b2.js": "/sequencer/precache-manifest.dd5e93538b7aeac86d1c0f1be73085b2.js",
+    "precache-manifest.1c068a4ec146270440de84b0dca674ee.js": "/sequencer/precache-manifest.1c068a4ec146270440de84b0dca674ee.js",
     "service-worker.js": "/sequencer/service-worker.js",
-    "static/css/main.6061e0a6.chunk.css.map": "/sequencer/static/css/main.6061e0a6.chunk.css.map"
+    "static/css/main.3950b9ad.chunk.css.map": "/sequencer/static/css/main.3950b9ad.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.a4c1fe0b.js",
     "static/js/2.a5d5e210.chunk.js",
-    "static/css/main.6061e0a6.chunk.css",
+    "static/css/main.3950b9ad.chunk.css",
     "static/js/main.59aac072.chunk.js"
   ]
 }
