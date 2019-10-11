@@ -70,6 +70,11 @@ const App: React.FC = () => {
         isGhostEditing={isGhostEditing}
         setIsGhostEditing={setIsGhostEditing}
       />
+      <div className="help">
+        Left click: toggle step; <br />
+        Right click: toggle ghost note; <br />
+        Double click: put an accent; <br />
+      </div>
     </div>
   );
 }

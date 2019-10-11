@@ -112,6 +112,9 @@
   border-top: 10px solid;
 }
 
+.help {
+  margin-top: 16px;
+}
 
 /* Color Theme Swatches in Hex */
 .Collections-1-hex { color: #0540F2; }
